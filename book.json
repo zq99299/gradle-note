@@ -1,0 +1,66 @@
+{
+  "title": "Gradle-note",
+  "description": "Gradle学习笔记",
+  "language": "zh-hans",
+   "plugins": [
+       "splitter",
+       "github",
+       "prism",
+       "-highlight",
+       "tbfed-pagefooter",
+       "expandable-chapters",
+	   "anchors",
+       "anchor-navigation-ex",
+       "page-footer",
+       "advanced-emoji",
+	   "bootstrap-callout"
+    ],
+  "pluginsConfig": {
+    "prism": {
+       "css": [
+         "prismjs/themes/prism-okaidia.css"
+       ]
+    },
+    "github": {
+      "url": "https://github.com/zq99299/gradle-note"
+    },
+    "github-buttons": {
+      "repo": "zq99299/gradle-note",
+      "types": [
+        "star",
+        "watch"
+      ],
+      "size": "large"
+    },
+    "tbfed-pagefooter": {
+        "copyright":"Copyright &copy mrcode.cn",
+        "modify_label": "该文件修订时间：",
+        "modify_format": "YYYY-MM-DD HH:mm:ss"
+    },
+    "expandable-chapters":{},
+    "page-footer": {
+            "description": "modified at",
+            "signature": "mrcode.cn",
+            "wisdom": "Gradle-学习笔记",
+            "format": "yyyy-MM-dd hh:mm:ss",
+            "copyright": "Copyright &#169; mrcode.cn",
+            "timeColor": "#666",
+            "copyrightColor": "#666",
+            "utcOffset": "8",
+            "isShowQRCode": true,
+            "baseUri": "https://zq99299.gitbooks.io/gradle-note/content/",
+            "isShowIssues": true,
+            "repo": "zq99299/gradle-note",
+            "issueNum": "8",
+            "token": "",
+            "style": "normal"
+    },
+	"anchor-navigation-ex":{
+		"isRewritePageTitle":true
+	},
+	"search-pro": {
+        "cutWordLib": "nodejieba",
+        "defineWord" : ["插件","plugin"]
+    }
+  }
+} 
