@@ -9,8 +9,8 @@
    * [2.4. 依赖管理](chapter/bsb/dependency_management.md)
    * [2.5. 日志](chapter/bsb/logging.md)    
    * [2.6. Java构建入门](chapter/bsb/java_project/README.md)
-    * [2.6.1. 基础项目](chapter/bsb/java_project/basic_project.md)
-    * [3.6.2. 多项目](chapter/bsb/java_project/multi-project.md)
+     * [2.6.1. 基础项目](chapter/bsb/java_project/basic_project.md)
+     * [3.6.2. 多项目](chapter/bsb/java_project/multi-project.md)
 
 
 
