@@ -328,6 +328,49 @@ task copyMethodWithExplicitDependencies{
 ```
 建议尽可能的使用复制任务,因为它支持增量化的构建和任务依赖推理，而不需要去额外的费力处理这些.不过 `copy()` 方法可以用作复制任务实现的一部分.即该 方法被在自定义复制任务中使用,请参考 第60章 编写自定义任务.在这样的场景下，自定义任务应该充分声明与复制操作相关的输入/输出。
 
+### 重命名文件
+在复制时重命名文件
+```groovy
+task rename(type: Copy) {
+    from 'src/main/webapp'
+    into 'build/explodedWar'
+    // 使用一个闭包映射文件名
+    rename { String fileName ->
+        fileName.replace('-staging-', '')
+    }
+    // 使用正则表达式映射文件名
+    rename '(.+)-staging-(.+)', '$1$2'
+    rename(/(.+)-staging-(.+)/, '$1$2')
+}
+```
+
+### 过滤文件
+在复制时过滤文件,过滤的时候替换掉占位符。
+```groovy
+import org.apache.tools.ant.filters.FixCrLfFilter
+import org.apache.tools.ant.filters.ReplaceTokens
+
+task filter(type: Copy) {
+    from 'src/main/resources'
+    into 'build/explodedWar'
+    // 在文件中替代属性标记
+//    expand(copyright: '2009', version: '2.3.1')
+//    expand(project.properties)
+    // 使用 Ant 提供的过滤器
+    filter(FixCrLfFilter)
+    filter(ReplaceTokens, tokens: [copyright: '2009', version: '2.3.1'])
+    // 用一个闭包来过滤每一行
+    filter { String line ->
+        "$line"
+    }
+    // 使用闭合来删除行
+    filter { String line ->
+        line.startsWith('-') ? null : line
+    }
+}
+```
+在源文件中扩展和过滤操作都会查找的某个标志 `token`,如果它的名字是 `tokenName` , 它的格式应该类似于 `@tokenName@`.
+
 ## 使用同步任务
 ## 创建档案
 
