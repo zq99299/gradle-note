@@ -53,9 +53,6 @@ File file2 = collection as File
 // 增加或则减少文件，不会改变原来的集合对象，新生成对象
 def union = collection + files('src/file5.txt')
 def different = collection - files('src/file5.txt')
-union.each { File file ->
-    println file.name
-} 
 
 ```
 ## 文件树
