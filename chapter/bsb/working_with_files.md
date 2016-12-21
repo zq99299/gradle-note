@@ -155,7 +155,7 @@ tree = fileTree(dir: 'src', include: '**/*.java', exclude: '**/*test*/**')
 
 就像使用文件集合一样,你可以访问文件树的内容,使用 `Ant-style` 规则选择一个子树。
 
-## 使用文件树
+**使用文件树**
 ```groovy
 // 遍历文件树
 tree.each {File file ->
@@ -234,8 +234,100 @@ SourceTask.java
         this.source.add(source);
     }
 ```
+在这里就能看出来了，由于源码使用object接收，所以source能接收字符串
+```groovy
+compile {
+    // 使用字符路径添加源目录
+    source 'src/main/java', 'src/main/groovy'
+
+    // 使用 File 对象添加源目录
+    source file('../shared/java')
+
+    // 使用闭合添加源目录
+    source { file('src/test/').listFiles() }
+}
+```
 
 ## 复制文件
+你可以使用复制任务( `Copy` )去复制文件. 复制任务扩展性很强,能够过滤复制文件的内容, 映射文件名.
+
+### 使用复制任务复制文件
+使用复制任务时需要提供想要复制的源文件和一个目标目录,如果你要指定文件被复制时的转换方式，可以使用 复制规则. 复制规则被 `CopySpec` 接口抽象,复制任务实现了这个接口. 使用 `CopySpec.from(java.lang.object[])` 方法指定源文件.使用 `CopySpec.into(java.lang.object)` 方法指定目标目录.
+```groovy
+task copyTask(type: Copy) {
+    from 'src/main/webapp'
+    into 'build/explodedWar'
+}
+```
+`from()` 方法接收任何 `files()` 方法支持的参数. 当参数被解析为一个目录时,在这个目录下的任何文件都会被递归地复制到目标目录(但不是目录本身).当一个参数解析为一个文件时,该文件被复制到目标目录中.当参数被解析为一个不存在的文件时,这个参数就会忽略.如果这个参数是一个任务,任务的输出文件(这个任务创建的文件)会被复制,然后这个任务会被自动添加为复制任务的依赖.
+### 指定复制任务的源文件和目标目录
+```groovy
+task anotherCopyTask(type: Copy) {
+    // 复制 src/main/webapp 目录下的所有文件
+    from 'src/main/webapp'
+    // 复制一个单独文件
+    from 'src/staging/index.html'
+    // 复制一个任务输出的文件
+    from copyTask
+    // 显式使用任务的 outputs 属性复制任务的输出文件
+    from copyTaskWithPatterns.outputs
+    // 复制一个 ZIP 压缩文件的内容
+    from zipTree('src/main/assets.zip')
+    // 最后指定目标目录
+    into { getDestDir() }
+}
+```
+
+你可以使用Ant-style 规则或者一个闭合选择要复制的文件.
+### 选择要复制文件
+```groovy
+task copyTaskWithPatterns(type: Copy) {
+    from 'src/main/webapp'
+    into 'build/explodedWar'
+    include '**/*.html'
+    include '**/*.jsp'
+    exclude { details -> details.file.name.endsWith('.html') &&
+                         details.file.text.contains('staging') }
+}
+```
+
+你也可以使用 `Project.copy()` 方法复制文件,它的工作方式有一些限制:
+- 首先该方法不是增量的,请参考 第 14.9节 跳过最新的任务.
+- 第二,当一个任务被用作复制源时(例如 `from()` 方法的参数), `copy()` 方法不能够实现任务依赖,因为它是一个普通的方法不是一个任务.因此,如果你使用 `copy()`方法作为一个任务的一部分功能,你需要显式的声明所有的输入和输出以确保获得正确的结果.
+
+
+###  复制文件使用copy()方法没有最新的检查
+```groovy
+task copyMethod {
+    doLast {
+        copy {
+            from 'src/main/webapp'
+            into 'build/explodedWar'
+            include '**/*.html'
+            include '**/*.jsp'
+        }
+    }
+}
+```
+
+
+### 复制文件使用copy()方法和最新的检查
+```groovy
+task copyMethodWithExplicitDependencies{
+    // up-to-date check for inputs, plus add copyTask as dependency
+    inputs.file copyTask
+    outputs.dir 'some-dir' // up-to-date check for outputs
+    doLast{
+        copy {
+            // Copy the output of copyTask
+            from copyTask
+            into 'some-dir'
+        }
+    }
+}
+```
+建议尽可能的使用复制任务,因为它支持增量化的构建和任务依赖推理，而不需要去额外的费力处理这些.不过 `copy()` 方法可以用作复制任务实现的一部分.即该 方法被在自定义复制任务中使用,请参考 第60章 编写自定义任务.在这样的场景下，自定义任务应该充分声明与复制操作相关的输入/输出。
+
 ## 使用同步任务
 ## 创建档案
 
