@@ -347,13 +347,16 @@ task rename(type: Copy) {
 ### 过滤文件
 在复制时过滤文件,过滤的时候替换掉占位符。
 ```groovy
+
+-file ：build.gradle
+
 import org.apache.tools.ant.filters.FixCrLfFilter
 import org.apache.tools.ant.filters.ReplaceTokens
 
 task filter(type: Copy) {
     from 'src/main/resources'
     into 'build/explodedWar'
-    // 在文件中替代属性标记
+    // 在文件中替代属性标记，这里我没有测试出是个什么意思
 //    expand(copyright: '2009', version: '2.3.1')
 //    expand(project.properties)
     // 使用 Ant 提供的过滤器
@@ -363,11 +366,38 @@ task filter(type: Copy) {
     filter { String line ->
         "$line"
     }
-    // 使用闭合来删除行
+    // 使用闭包来删除行
     filter { String line ->
         line.startsWith('-') ? null : line
     }
+    // 闭包中也可以这样写，其实就是遍历每一行，叫你返回处理的值
+    filter { String line ->
+        if(line.startsWith('-')){
+            return null
+        }else{
+            line
+        }
+    }
 }
+
+-file ：src/main/resources/test.txt
+
+@copyright@
+@version@
+-我是被删除的
+
+-file ：build/explodedWar/test.txt
+
+2009
+2.3.1
+
+
+可以看到，上面的占位符已经被替换了
+
+
+
+
+
 ```
 在源文件中扩展和过滤操作都会查找的某个标志 `token`,如果它的名字是 `tokenName` , 它的格式应该类似于 `@tokenName@`.
 
