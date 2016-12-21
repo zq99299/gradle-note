@@ -55,7 +55,53 @@ def union = collection + files('src/file5.txt')
 def different = collection - files('src/file5.txt')
 
 ```
+
 ## 文件树
+
+可以使用files方法或则闭包返回可调用的实例，只要返回的是files支持的类型即可
+```groovy
+task list {
+    doLast {
+        File srcDir
+
+        // Create a file collection using a closure
+        // 这里有一个特性，按照java中来看，srcDir.listFiles() 肯定空指针了，但是这里好像并没有被执行，闭包？
+        FileCollection collection = files { srcDir.listFiles() }
+        
+        srcDir = file('.idea')
+        // 正真使用前再赋值
+        collection.collect { relativePath(it) }.sort().each { println it }
+
+        println "Contents of $srcDir.name"
+        collection.collect { relativePath(it) }.sort().each { println it }
+        
+        srcDir = file('.gradle')
+        println "Contents of $srcDir.name"
+       collection.collect { it.absolutePath }.sort().each { println it }
+       
+       //上面的collection.collect...作用是返回一组指定的数据类型
+    }
+}
+```
+collect 的源码注释，这个注释在idea中不知道是怎么搞出来的了。可以看到下面的示例。就知道该方法怎么使用了
+```java
+org.codehaus.groovy.runtime.DefaultGroovyMethods
+public static <T> List<T> collect(@Nullable Object self,
+                                  Closure<T> transform)
+    /**
+     * Iterates through this aggregate Object transforming each item into a new value using the
+     * <code>transform</code> closure, returning a list of transformed values.
+     * Example:
+     * <pre class="groovyTestCase">def list = [1, 'a', 1.23, true ]
+     * def types = list.collect { it.class }
+     * assert types == [Integer, String, BigDecimal, Boolean]</pre>
+     *
+     * @param self      an aggregate Object with an Iterator returning its items
+     * @param transform the closure used to transform each item of the aggregate object
+     * @return a List of the transformed values
+     * @since 1.0
+     */
+```
 ## 使用存档的内容作为一个文件树
 ## 指定一组输入文件
 ## 复制文件
