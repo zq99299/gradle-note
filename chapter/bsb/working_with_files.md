@@ -219,6 +219,20 @@ compile {
         file('src').listFiles().findAll {it.name.endsWith('.zip')}.collect { zipTree(it) }
     }
 }
+
+```
+教你看源码实现：
+```java
+task compile(type: JavaCompile){
+    source = 'src/main/java'
+}
+在idea中，点source就能看到了
+SourceTask.java
+    protected final List<Object> source = new ArrayList();
+    public void setSource(Object source) {
+        this.source.clear();
+        this.source.add(source);
+    }
 ```
 
 ## 复制文件
