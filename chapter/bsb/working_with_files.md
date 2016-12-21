@@ -394,12 +394,26 @@ task filter(type: Copy) {
 
 可以看到，上面的占位符已经被替换了
 
-
-
-
-
 ```
 在源文件中扩展和过滤操作都会查找的某个标志 `token`,如果它的名字是 `tokenName` , 它的格式应该类似于 `@tokenName@`.
+
+### 使用 CopySpec 类
+复制规范来自于层次结构,一个复制规范继承其目标路径,包括模式,排除模式，复制操作,名称映射和过滤器.
+
+嵌套复制规范
+```groovy
+task nestedSpecs(type: Copy) {
+    into 'build/explodedWar'
+    exclude '**/*.txt'
+    from('src/dist') {
+        exclude '**/*.html'
+    }
+    into('libs') {
+        from configurations.runtime
+    }
+}
+```
+也就是说：`from('src/dist')`的时候，里面如果有.txt文件的话，将被继承规则（外围定义了过滤该类型文件）给过滤掉
 
 ## 使用同步任务
 ## 创建档案
