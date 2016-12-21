@@ -18,7 +18,7 @@ build
 ```
 
 ## 执行构建
-```groovy
+```bash
 $ gradle build
 :compileJava UP-TO-DATE
 :processResources UP-TO-DATE
