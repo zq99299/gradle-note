@@ -375,7 +375,7 @@ task filter(type: Copy) {
         if(line.startsWith('-')){
             return null
         }else{
-            line
+            return line
         }
     }
      // 指定过滤时读取文件的编码格式
