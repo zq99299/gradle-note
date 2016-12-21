@@ -48,7 +48,14 @@ File file2 = collection as File
 
 // 需要注意的是：
 * singleFile 和 as File : 集合中存在多个文件的话会抛出异常
- 
+
+// Add and subtract collections
+// 增加或则减少文件，不会改变原来的集合对象，新生成对象
+def union = collection + files('src/file5.txt')
+def different = collection - files('src/file5.txt')
+union.each { File file ->
+    println file.name
+} 
 
 ```
 ## 文件树
