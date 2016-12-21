@@ -122,7 +122,8 @@ jar {
  
  官网文档：https://docs.gradle.org/current/dsl/org.gradle.api.tasks.bundling.Jar.html
 
-## 测试阶段加入一个系统属性. 怎么使用这个属性 还不知道
+## 测试阶段加入一个系统属性
+怎么使用这个属性 还不知道
 ```groovy
 test {
     systemProperties 'propertyssssssssssssssssssss': 'value'
@@ -191,6 +192,24 @@ uploadArchives {
     }
 }
 ```
+
+## 创建 Eclipse 项目
+```groovy
+apply plugin: 'eclipse'
+
+$ gradle eclipse 命令来生成 Eclipse 的项目文件
+```
+## 创建 Idea项目
+```groovy
+apply plugin: 'idea'
+
+$ gradle idea 命令来生成 idea 的项目文件
+```
+
+
+
+
+
 
 
 
