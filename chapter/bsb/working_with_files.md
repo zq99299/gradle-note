@@ -153,7 +153,74 @@ tree = fileTree(dir: 'src', includes: ['**/*.java', '**/*.xml'])
 tree = fileTree(dir: 'src', include: '**/*.java', exclude: '**/*test*/**')
 ```
 
+就像使用文件集合一样,你可以访问文件树的内容,使用 `Ant-style` 规则选择一个子树。
+
+## 使用文件树
+```groovy
+// 遍历文件树
+tree.each {File file ->
+    println file
+}
+FileTree filtered = tree.matching {
+    exclude '**/*.iml'
+}
+
+// 合并文件树A
+FileTree sum = tree + fileTree(dir: '.gradle')
+
+// 访问文件数的元素
+tree.visit {element ->
+    println "$element.relativePath => $element.file"
+}
+```
+
+## 使用存档的内容作为一个文件树
+你可以使用 `ZIP` 或者 `TAR` 等压缩文件的内容作为文件树,  `Project.zipTree(java.lang.object)` 和 `Project.tarTree(java.lang .object)`  方法返回一个 `FileTree` 实例, 你可以像使用其他文件树或者文件集合一样使用它.例如,你可以使用它去扩展一个压缩文档或者合并一些压缩文档.
+
+```groovy
+// 使用路径创建一个 ZIP 文件
+FileTree zip = zipTree('someFile.zip')
+
+// 使用路径创建一个 TAR 文件
+FileTree tar = tarTree('someFile.tar')
+
+//tar tree 能够根据文件扩展名得到压缩方式,如果你想明确的指定压缩方式,你可以使用下面方法
+FileTree someTar = tarTree(resources.gzip('someTar.ext'))
+```
 ## 指定一组输入文件
+在 `Gradle` 中有一些对象的某些属性可以接收一组输入文件.例如,`JavaComplile` 任务有一个 `source` 属性,它定义了编译的源文件,你可以设置这个属性的值,只要 `files()` 方法支持. 这意味着你可以使用 `File , String , collection , FileCollection` 甚至是使用一个闭包去设置属性的值.
+
+```groovy
+task compile(type: JavaCompile)
+//使用一个 File 对象设置源目录
+compile {
+    source = file('src/main/java')
+}
+
+//使用一个字符路径设置源目录
+compile {
+    source = 'src/main/java'
+}
+
+// 使用一个集合设置多个源目录
+compile {
+    source = ['src/main/java', '../shared/java']
+}
+
+// 使用 FileCollection 或者 FileTree 设置源目录
+compile {
+    source = fileTree(dir: 'src/main/java').matching { include 'org/gradle/api/**' }
+}
+
+// 使用一个闭包设置源目录
+compile {
+    source = {
+        // Use the contents of each zip file in the src dir
+        file('src').listFiles().findAll {it.name.endsWith('.zip')}.collect { zipTree(it) }
+    }
+}
+```
+
 ## 复制文件
 ## 使用同步任务
 ## 创建档案
