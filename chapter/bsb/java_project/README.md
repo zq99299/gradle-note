@@ -1,7 +1,5 @@
 # JAVA构建入门
 
-* [3.1. 基础项目](chapter/java_project/basic_project.md)
-* [3.2. 多项目](chapter/java_project/multi-project.md)
 
 ## Java插件
 Gradle 是一种多用途的构建工具. 它可以在你的构建脚本里构建任何你想要实现的东西. 但前提是你必须先在构建脚本里加入代码, 不然它什么都不会执行.
