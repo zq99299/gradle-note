@@ -30,7 +30,27 @@ println collection.from  // 打印我们put的相对路径
 println collection.getFiles() //获取这一组绝对文件对象
 ```
 ### 使用文件集合
+```groovy
+// Iterate over the files in the collection
+// 遍历集合中的文件
+collection.each { File file ->
+    println file.name
+}
 
+// Convert the collection to various types
+// 转换为各种类型
+Set set = collection.files
+Set set2 = collection as Set
+List list = collection as List
+String path = collection.asPath
+File file = collection.singleFile
+File file2 = collection as File
+
+// 需要注意的是：
+* singleFile 和 as File : 集合中存在多个文件的话会抛出异常
+ 
+
+```
 ## 文件树
 ## 使用存档的内容作为一个文件树
 ## 指定一组输入文件
