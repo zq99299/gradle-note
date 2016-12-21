@@ -378,6 +378,8 @@ task filter(type: Copy) {
             line
         }
     }
+     // 指定过滤时读取文件的编码格式
+     filteringCharset = 'UTF-8'
 }
 
 -file ：src/main/resources/test.txt
