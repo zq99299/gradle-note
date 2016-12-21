@@ -159,7 +159,38 @@ $ gradle tasks 中能看到增加了一个 task：uploadArchives
 疑问就是，为什么这里增加这个配置，就多出了一个task呢？
 
 
+## 完成的build.gradle 文件
+```groovy
+apply plugin: 'java'
 
+sourceCompatibility = 1.5
+version = '1.0'
+
+jar {
+	// 定制 MANIFEST.MF 文件的内容，一个attributes 占一行
+    manifest {
+        attributes 'Implementation-Title': 'Gradle Quickstart', 'Implementation-Version': version
+    }
+}
+
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'commons-collections', name: 'commons-collections', version: '3.2'
+    testCompile group: 'junit', name: 'junit', version: '4.+'
+}
+
+uploadArchives {
+    repositories {
+       flatDir {
+           dirs 'repos' // 当前目录
+       }
+    }
+}
+```
 
 
 
