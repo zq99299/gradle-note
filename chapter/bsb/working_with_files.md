@@ -485,7 +485,51 @@ build\distributions\gradle-1.0.zip
 | classifier	| String	| null	| 归档文件名的分类部分
 | extension	| String	| 取决于文档类型和压缩类型: zip, jar, war, tar, tgz 或者 tbz2.	| 归档文件的扩展名
 
+### 配置归档文件-自定义文档名
 
+```groovy
+apply plugin: 'java'
+version = 1.0
+
+task myZip(type: Zip) {
+    from 'somedir'
+    baseName = 'customName'
+}
+
+println myZip.archiveName
+```
+
+```groovy
+使用 gradle -q myZip 命令进行输出:
+
+> gradle -q myZip
+customName-1.0.zip
+```
+
+更多配置:
+
+
+### 配置归档任务- 附加其他后缀
+
+```groovy
+apply plugin: 'java'
+archivesBaseName = 'gradle'
+version = 1.0
+
+task myZip(type: Zip) {
+    appendix = 'wrapper'
+    classifier = 'src'
+    from 'somedir'
+}
+
+println myZip.archiveName
+```
+
+使用 gradle -q myZip 命令进行输出:
+```groovy
+> gradle -q myZip
+gradle-wrapper-1.0-src.zip
+```
 
 > #### type::本文学习官网文档
 >
