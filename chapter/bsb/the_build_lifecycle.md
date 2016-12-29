@@ -124,7 +124,8 @@ Root project 'gradle'
           \--- Project ':services:hotels:ap'
 ```
 
-2. 平面布局
+#### 平面布局
+
 settings.gradle
 ```groovy
 includeFlat 'project3', 'project4'
