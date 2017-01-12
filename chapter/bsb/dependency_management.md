@@ -1,0 +1,64 @@
+# 依赖管理
+
+## 介绍
+构建依赖关系管理是一个关键的特性，`Gradle`容易理解和兼容`mavn`的方式。对依赖关系管理的支持有：
+* 传递依赖管理：它让你完全控制你的项目的依赖关系树
+* 支持不受管理的依赖性：如果你的依赖仅仅是文件版本控制或共享驱动器，它提供了强大的功能支持这种需求
+* 支持制定一依赖项的定义：它的模块依赖关系使您能构建脚本描述依赖关系的层次结构
+* 完全与Maven和ivy的兼容性：无缝兼容
+* 继承与现有管理基础设置的Mave和Ivy：兼容这两种管理的仓库
+
+## 文件名中加入版本
+ `commons-beanutils-1.3.jar` 或一组文件名称 `spring.jar`
+您觉得哪种更直观呢？
+
+## 版本冲突
+一般的项目都会引用大量的第三方jar包，那么这个时候就会出现版本冲突，然而Gradle提供了以下几种策略
+
+* 最新的：使用最新版本的依赖，默认策略
+* 失败：一个版本冲突导致构建失败。需要显示的配置  [ResolutionStrategy](https://docs.gradle.org/current/dsl/org.gradle.api.artifacts.ResolutionStrategy.html?_ga=1.13926064.663550861.1483336010   ) 中如何配置
+
+上面的两种足以解决大多数的场景需求了。还提供了以下更细粒度的机制来解决版本冲突
+* 强制配置第一级的依赖：例子:D[ependencyHandler ](https://docs.gradle.org/current/dsl/org.gradle.api.artifacts.dsl.DependencyHandler.html?_ga=1.77181586.663550861.1483336010)
+* 配置任何以来项的传递：
+* 配置依赖决议：
+* xxxx
+
+`gradle dependencies` 查看依赖树。`gradle :您的项目:dependencies` 来查看子项目的依赖树
+
+## 使用动态版本和修改模块
+* 使用一个最新的：`latest.integration`
+* 某一个版本的最新的：`2.+`
+
+默认情况下Gradle缓存24小时的动态版本和修改模块，可以使用[命令行选项](https://docs.gradle.org/current/userguide/dependency_management.html?_ga=1.114054784.663550861.1483336010#sec:cache_command_line_options) 和参考 [调整控制依赖缓存](https://docs.gradle.org/current/userguide/dependency_management.html?_ga=1.184662830.663550861.1483336010#sec:controlling_caching)
+
+## 依赖配置
+Gradle的依赖关系配置，可以被扩展，许多插件会添加预定义的配置，例如`java`配置了各种资源路径。API:  [ConfigurationContainer ](https://docs.gradle.org/current/dsl/org.gradle.api.artifacts.ConfigurationContainer.html?_ga=1.114512384.663550861.1483336010)。
+
+### 定义配置
+```groovy
+configurations {
+    compile
+}
+```
+### 访问配置
+```java
+println configurations.compile.name
+println configurations['compile'].name
+```
+
+### 配置一个配置
+```groovy
+configurations {
+    compile {
+        description = 'compile classpath'
+        transitive = true
+    }
+    runtime {
+        extendsFrom compile
+    }
+}
+configurations.compile {
+    description = 'compile classpath'
+}
+```
