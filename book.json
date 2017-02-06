@@ -9,7 +9,7 @@
        "-highlight",
        "tbfed-pagefooter",
        "expandable-chapters",
-	"anchors",
+	"-anchors",
        "anchor-navigation-ex",
        "-page-footer",
        "advanced-emoji",
