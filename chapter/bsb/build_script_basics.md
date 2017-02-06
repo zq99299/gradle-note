@@ -11,7 +11,8 @@ Gradle 里的任何东西都是基于这两个基础概念:
 每一个构建都是由一个或多个 projects 构成的. 一个 project 到底代表什么依赖于你想用 Gradle 做什么. 
 
 举个例子, 一个 project 可以代表一个 JAR 或者一个网页应用. 它也可能代表一个发布的 ZIP 压缩包, 这个 ZIP 可能是由许多其他项目的 JARs 构成的. 但是一个 project 不一定非要代表被构建的某个东西. 它可以代表一件**要做的事, 比如部署你的应用.
-
+#### ssssss
+ssssssss
 ### tasks
 每一个 project 是由一个或多个 tasks 构成的.
 
