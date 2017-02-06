@@ -8,7 +8,7 @@
 * 完全与Maven和ivy的兼容性：无缝兼容
 * 继承与现有管理基础设置的Mave和Ivy：兼容这两种管理的仓库
 
-## 什么是依赖管理
+# 什么是依赖管理
 粗略的讲：
 - dependencies(依赖项) ：
 Gradle 需要了解你的项目需要构建或运行的东西, 以便找到它们. 我们称这些传入的文件为项目的 dependencies(依赖项)
@@ -28,6 +28,7 @@ Gradle 需要了解你的项目需要构建或运行的东西, 以便找到它�
     
     `发布`具体是看你的需求，可以发布到任何地方，如maven仓库，本地目录等
     
+# 依赖关系管理最佳实践    
 ## 文件名中加入版本
  `commons-beanutils-1.3.jar` 或一组文件名称 `spring.jar`
 您觉得哪种更直观呢？
@@ -52,7 +53,7 @@ Gradle 需要了解你的项目需要构建或运行的东西, 以便找到它�
 
 默认情况下Gradle缓存24小时的动态版本和修改模块，可以使用[命令行选项](https://docs.gradle.org/current/userguide/dependency_management.html?_ga=1.114054784.663550861.1483336010#sec:cache_command_line_options) 和参考 [调整控制依赖缓存](https://docs.gradle.org/current/userguide/dependency_management.html?_ga=1.184662830.663550861.1483336010#sec:controlling_caching)
 
-## 依赖配置
+# 依赖配置
 Gradle的依赖关系配置，可以被扩展，许多插件会添加预定义的配置，例如`java`配置了各种资源路径。API:  [ConfigurationContainer ](https://docs.gradle.org/current/dsl/org.gradle.api.artifacts.ConfigurationContainer.html?_ga=1.114512384.663550861.1483336010)。
 
 ### 定义配置
@@ -82,3 +83,16 @@ configurations.compile {
     description = 'compile classpath'
 }
 ```
+
+# 如何声明你的依赖
+## 依赖类型
+ 依赖类型
+
+| 类型 | 描述 |
+|----------------------|------------------
+| 外部模块的依赖	     | 在一些存储库依赖于外部模块。
+| 项目依赖项	     | 在相同的构建依赖于另一个项目。
+| 文件的依赖	     | 依赖于一组文件在本地文件系统。
+| 客户端模块的依赖    | 依赖于外部模块,工件位于一些库,但模块的元数据 是由当地指定的构建。 你使用这种依赖当你想覆盖模块的元数据。
+| Gradle API依赖     | 依赖于当前Gradle版本的API。 你使用这种依赖,当你开发定制Gradle插件和任务类型。
+| 当地Groovy的依赖    | 依赖于当前使用的Groovy版本Gradle版本。 你使用这种依赖,当你开发定制Gradle插件和任务类型。
