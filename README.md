@@ -1,6 +1,7 @@
 # Gradle 学习使用笔记
 
-* [概述](README.md)
+
+## 目录
 * [1. 安装](chapter/install.md)
 * [2. 脚本编写基础](chapter/bsb/README.md)
    * [2.1. 基础](chapter/bsb/build_script_basics.md)
@@ -12,8 +13,9 @@
     * [2.6.1. 基础项目](chapter/bsb/java_project/basic_project.md)
     * [3.6.2. 多项目](chapter/bsb/java_project/multi-project.md)
     
+---------------------
     
-学习心得：
+## 学习心得：
 
 1. 参考 https://docs.gradle.org/current/userguide/userguide.html
  得到指定版本的文档 ：https://docs.gradle.org/xxx版本号/userguide/userguide.html 
@@ -22,6 +24,8 @@
 4. 在使用文档中会把一些示例中的方法对应的 API发出来，去看详细的api能收获到意想不到的效果。
 
 虽然还是很多都看不懂。至少比以前进步了。
+
+-----------------------
 
 
 

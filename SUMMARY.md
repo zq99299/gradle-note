@@ -1,6 +1,7 @@
 # Summary
 
-* [概述](README.md)
+* [关于这本书](README.md)
+* [介绍与概述](chapter/introduction.md)
 * [1. 安装](chapter/install.md)
 * [2. 脚本编写基础](chapter/bsb/README.md)
     * [2.1. 基础](chapter/bsb/build_script_basics.md)
