@@ -56,7 +56,7 @@
             "style": "normal"
     },
 	"anchor-navigation-ex":{
-		"isRewritePageTitle":false
+		"isRewritePageTitle":true
 	},
 	"search-pro": {
         "cutWordLib": "nodejieba",
