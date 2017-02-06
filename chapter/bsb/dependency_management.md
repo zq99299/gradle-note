@@ -115,5 +115,8 @@ dependencies {
 ```
 这里发生了什么? 这个构建脚本声明 Hibernate core 3.6.7.最终 被用来编译项目的源代码. 言外之意是, 在运行阶段同样也需要 Hibernate core 和它的依赖. 构建脚本同样声明了需要 junit >= 4.0 的版本来编译项目测试. 它告诉 Gradle 到 Maven 中央仓库里找任何需要的依赖. 接下来的部分会具体说明.
 
-> ### 官方文档 https://docs.gradle.org/3.0/userguide/dependency_management.html
+> 官方文档 https://docs.gradle.org/3.0/userguide/dependency_management.html
+
+# 发布 artifacts
+> 官方文档 https://docs.gradle.org/current/userguide/artifact_management.html
 
