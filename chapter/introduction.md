@@ -51,6 +51,6 @@ Gradle 是一个开源项目, 遵循 ASL 许可.
 
 对于那些同时是或者即将是 Python 或 Ruby 开发者的 Java 开发人员来说, 上述的讨论并不适用. Gradle 的设计非常适合在 JRuby 和 Jython 中创建另一个构建脚本引擎. 它对于我们来说只是目前开发中没有最高优先级. 我们十分支持任何人来做贡献, 创建额外的构建脚本引擎.
 
-> #### 本文引用至
+> 本文引用至
 >
 > https://dongchuan.gitbooks.io/gradle-user-guide-/content/overview/why_groovy.html
