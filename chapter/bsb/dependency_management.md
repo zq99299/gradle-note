@@ -96,3 +96,21 @@ configurations.compile {
 | 客户端模块的依赖    | 依赖于外部模块,工件位于一些库,但模块的元数据 是由当地指定的构建。 你使用这种依赖当你想覆盖模块的元数据。
 | Gradle API依赖     | 依赖于当前Gradle版本的API。 你使用这种依赖,当你开发定制Gradle插件和任务类型。
 | 当地Groovy的依赖    | 依赖于当前使用的Groovy版本Gradle版本。 你使用这种依赖,当你开发定制Gradle插件和任务类型。
+
+## 外部依赖
+让我们看一下一些依赖的声明. 下面是一个基础的构建脚本:
+声明依赖
+```groovy
+build.gradle
+apply plugin: 'java'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'org.hibernate', name: 'hibernate-core', version: '3.6.7.Final'
+    testCompile group: 'junit', name: 'junit', version: '4.+'
+}
+```
+这里发生了什么? 这个构建脚本声明 Hibernate core 3.6.7.最终 被用来编译项目的源代码. 言外之意是, 在运行阶段同样也需要 Hibernate core 和它的依赖. 构建脚本同样声明了需要 junit >= 4.0 的版本来编译项目测试. 它告诉 Gradle 到 Maven 中央仓库里找任何需要的依赖. 接下来的部分会具体说明.
