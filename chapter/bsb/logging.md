@@ -11,3 +11,5 @@ logger.info('An info log message.')
 logger.debug('A debug log message.')
 logger.trace('A trace log message.')
 ```
+
+> 官方文档 https://docs.gradle.org/3.0/userguide/logging.html
