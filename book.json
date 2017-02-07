@@ -56,12 +56,13 @@
             "token": "",
             "style": "normal"
     },
-	"anchor-navigation-ex":{
-		"isRewritePageTitle":true
-	},
-	"search-pro": {
-        "cutWordLib": "nodejieba",
-        "defineWord" : ["插件","plugin"]
-    }
+    "anchor-navigation-ex":{
+	"isRewritePageTitle":true
+     },
+     "page-footer-ex":{
+        "copyright":"mrcode.cn",
+        "update_label":"update: ",
+        "update_format":"YYYY-MM-DD HH:mm:ss"
+     }
   }
 } 
