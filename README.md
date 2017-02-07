@@ -30,6 +30,10 @@
 
 -----------------------
 
+引用自己的github插件调试完成之后再发布到npm：
+"anchor-navigation-ex@git+https://github.com/zq99299/gitbook-plugin-anchor-navigation-ex.git"
+
+
 
 
 

@@ -10,10 +10,10 @@
        "tbfed-pagefooter",
        "expandable-chapters",
 	"-anchors",
-       "anchor-navigation-ex",
        "-page-footer",
        "advanced-emoji",
-	"-bootstrap-callout"
+	"-bootstrap-callout",
+	"anchor-navigation-ex@git+https://github.com/zq99299/gitbook-plugin-anchor-navigation-ex.git"
     ],
   "pluginsConfig": {
     "prism": {
